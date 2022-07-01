@@ -1,5 +1,5 @@
 # CHIRPS
-# By: H. Achicanoy, 2022
+# By: H. Achicanoy, https://github.com/haachicanoy 2022
 
 # R options
 g <- gc(reset = T); rm(list = ls()) # Empty garbage collector

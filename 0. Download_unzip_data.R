@@ -1,6 +1,6 @@
 
 # CHIRPS
-# # By: Anny, 2022
+# # By: Anny, https://github.com/ani-ghosh and Cesar https://github.com/cesarsaa, 2022
 
 devtools::install_github("bluegreen-labs/ecmwfr")
 # install.packages("ecmwfr")
