@@ -8,8 +8,8 @@ devtools::install_github("bluegreen-labs/ecmwfr")
 library(ecmwfr)
 
 # credentials
-UID = "139257"
-key = "33b9a000-757d-478f-8efd-ba560695a437"
+UID = "XXXXXX"
+key = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 # save key for CDS
 wf_set_key(user = UID,
