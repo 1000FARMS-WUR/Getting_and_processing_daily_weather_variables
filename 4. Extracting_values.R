@@ -3,6 +3,7 @@ library(geodata)
 library(terra)
 library(sp)
 library(sf)
+library(here)
 
 source('3.1 getting_weather_daily_FUN.R')
 
@@ -15,17 +16,18 @@ geodata::gadm(country = 'UGA', level = 1, path = "Shape_africa/", version = '4.0
 
 # Process
 
-shp_uganda <- raster("Shape_africa/UGA_elv_msk.tif")
+shp_uganda <- raster(here::here("Shape_africa","UGA_elv_msk.tif"))
 
 plot(shp_uganda)
 
-Uganda_Shp <- as_sf(terra::vect(readRDS("Shape_africa/gadm40_UGA_1_pk.rds")))
+Uganda_Shp <- as_sf(terra::vect(readRDS(here::here("Shape_africa","gadm40_UGA_1_pk.rds"))))
 
 Uganda_Shp <- as(Uganda_Shp,"Spatial")
 
 plot(Uganda_Shp)
 
-rs_base <- raster("Weather_data/10m_wind_speed/Wind-Speed-10m-Mean_C3S-glob-agric_AgERA5_20210101_final-v1.0.nc")
+rs_base <- raster(here::here("Weather_data","10m_wind_speed",
+                             "Wind-Speed-10m-Mean_C3S-glob-agric_AgERA5_20210101_final-v1.0.nc"))
 
 grilla <- terra::crop(rs_base,Uganda_Shp)
 

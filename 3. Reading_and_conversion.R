@@ -9,7 +9,7 @@ library(tidyverse)
 
 rm(list=ls())
 
-source('3.1 getting_weather_daily_FUN.R')
+source(here::here('3.1 getting_weather_daily_FUN.R'))
 
 # Reading files and converting in stacks
 
@@ -34,6 +34,6 @@ start_time <- Sys.time()
 full_data <- extraWeatherData(stack_fls=layers,events = events)
 Sys.time() - start_time
 
-save(full_data,file = "weather_daily_data.Rdata")
+save(full_data,file = here::here("weather_daily_data.Rdata"))
 
 

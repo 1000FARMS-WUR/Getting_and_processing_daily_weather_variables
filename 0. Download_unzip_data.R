@@ -1,6 +1,6 @@
 
 # CHIRPS
-# # By: Anny, https://github.com/ani-ghosh and Cesar https://github.com/cesarsaa, 2022
+# # By: Anny, 2022
 
 devtools::install_github("bluegreen-labs/ecmwfr")
 # install.packages("ecmwfr")
@@ -8,8 +8,8 @@ devtools::install_github("bluegreen-labs/ecmwfr")
 library(ecmwfr)
 
 # credentials
-UID = "XXXXXX"
-key = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+UID = "139257"
+key = "33b9a000-757d-478f-8efd-ba560695a437"
 
 # save key for CDS
 wf_set_key(user = UID,
@@ -56,7 +56,7 @@ getERA5 <- function(i, qq, year, month, datadir){
 
 ########################################################################################################
 # change data directory
-datadir <- "C:/aaguilar/Datos_coperncous/Zip"
+datadir <- here::here("Zip")
 # datadir <- ""
 dir.create(datadir, FALSE, TRUE)
 
@@ -73,7 +73,9 @@ qq <- data.frame(variable = c("vapour_pressure"),
 
 
 # temporal range
-years <- as.character(2021:format(Sys.time(), "%Y"))
+years <- as.character(2017:format(Sys.time(), "%Y"))
+years <- as.character(2017:2020)
+
 months <- c(paste0("0", 1:9), 10:12)
 
 # all download
@@ -92,14 +94,13 @@ for (year in as.character(1999:2001)){
 }
 
 # unzip
-datadir <- "C:/aaguilar/Datos_coperncous/Zip"
+datadir <-  here::here("Zip")
 
 zz <- list.files(datadir, ".zip$", full.names = TRUE)
 
 vars <- c("solar_radiation_flux","10m_wind_speed","2m_temperature-24_hour_maximum",
-          "2m_temperature-24_hour_mean","2m_temperature-24_hour_minimum","2m_relative_humidity")
+          "2m_temperature-24_hour_mean","2m_temperature-24_hour_minimum","2m_relative_humidity","vapour_pressure-24_hour_mean")
 
-vars <- c("vapour_pressure-24_hour_mean")
 
 
 
@@ -110,6 +111,7 @@ extractNC <- function(var, zz, datadir,subFolder="", ncores = 1){
   parallel::mclapply(z, function(x){unzip(x, exdir = fdir)}, mc.cores = ncores, mc.preschedule = FALSE)
   return(NULL)
 } 
+
 
 for (var in vars){
   extractNC(var, zz, datadir,subFolder = "Weather_data", ncores = 1)

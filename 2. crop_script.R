@@ -7,16 +7,17 @@ library(rgdal)
 library(sp)
 library(dplyr)
 library(tidyverse)
+library(here)
 
-africa <- readOGR("Shape_africa/afr_g2014_2013_0.shp")
+africa <- readOGR(here::here("Shape_africa","afr_g2014_2013_0.shp"))
 
-weatherpath <- "Weather_data/"
+weatherpath <- here::here("Weather_data")
 
 weathervars <- list.files(weatherpath)
 
 weathervars
 
-folders_names <- c("wind","rhum","tmax","tmin","rain","srad","vapr")
+folders_names <- c("wind","rhum","tmax","tmen","tmin","rain","srad","vapr")
 
 math_df <- data.frame(weathervars,folders_names)
 
@@ -34,9 +35,9 @@ lapply(paste0(new_folder,"/",folders_names),dir.create,showWarnings = F,recursiv
 
 vars_ini <- list.files(weatherpath,full.names = T)
 
-seq(nrow(math_df))
+
     
-lapply(8, function(d){
+lapply(c(5,6), function(d){
   
     md <- math_df[d,]
     print(md)
@@ -55,16 +56,16 @@ lapply(8, function(d){
     newNam <- paste(md[2] ,ds$ver,sep="_")
     
     
-    stcvar <- stack(lapply(paste0(w,"/",list.files(w,pattern =  extn)),raster))
+    stcvar <- stack(lapply(paste0(w,"/",list.files(w,pattern =  extn)),terra::raster))
 
     names(stcvar) <- newNam
 
-    crop_file <- crop(stcvar,africa)
+    crop_file <- terra::crop(stcvar,africa)
 
     save_path <- paste(new_folder,"/",md[2],"/",newNam,".tif",sep="")
 
     lapply(seq(length(save_path)), function(w){
-      raster::writeRaster(crop_file[[w]],save_path[w],format="GTiff", overwrite=TRUE)
+      terra::writeRaster(crop_file[[w]],save_path[w],format="GTiff", overwrite=TRUE)
     })
     
   }

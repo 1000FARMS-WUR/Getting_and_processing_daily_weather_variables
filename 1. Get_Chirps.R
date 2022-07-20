@@ -1,5 +1,5 @@
 # CHIRPS
-# By: H. Achicanoy, https://github.com/haachicanoy 2022
+# By: H. Achicanoy, 2022
 
 # R options
 g <- gc(reset = T); rm(list = ls()) # Empty garbage collector
@@ -10,8 +10,8 @@ suppressMessages(library(pacman))
 suppressMessages(pacman::p_load(raster, geodata, terra, imager, lubridate))
 
 # Time frame
-ini <- as.Date('2021-01-01')
-end <- as.Date(Sys.time())
+ini <- as.Date('2020-03-02')
+end <- as.Date('2020-12-31')
 dts <- seq(from = ini, to = end, by = 'day'); rm(ini, end)
 
 # Output directory
